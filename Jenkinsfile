@@ -107,12 +107,10 @@ pipeline {
 
         success {
             echo '✅ Build réussi!'
-            // Vous pouvez ajouter ici une notification (email, Slack, etc.)
         }
 
         failure {
             echo '❌ Build échoué!'
-            // Vous pouvez ajouter ici une notification d'erreur
         }
     }
 }
