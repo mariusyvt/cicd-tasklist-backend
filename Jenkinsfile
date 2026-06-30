@@ -5,7 +5,7 @@ pipeline {
         REGISTRY = 'docker.io'
         IMAGE_NAME = "${REGISTRY}/muvay/marius-tasklist-backend"
         IMAGE_TAG = "${BUILD_NUMBER}"
-        DOCKER_CREDENTIALS = 'dockerhub-credentials'
+        DOCKER_CREDENTIALS = 'marius-dockerhub-credentials'
         SONARQUBE_TOKEN = 'sonarqube-token'
     }
 
