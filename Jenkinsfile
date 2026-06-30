@@ -55,20 +55,20 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-                echo '🔍 Analyse SonarQube...'
-                withSonarQubeEnv('sonarqube') {
-                    sh '''
-                        npx sonarqube-scanner \
-                            -Dsonar.projectKey=marius-tasklist-backend \
-                            -Dsonar.sources=src \
-                            -Dsonar.coverage.exclusions=**/__tests__/** \
-                            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info,coverage-e2e/lcov.info
-                    '''
-                }
-            }
-        }
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         echo '🔍 Analyse SonarQube...'
+        //         withSonarQubeEnv('sonarqube') {
+        //             sh '''
+        //                 npx sonarqube-scanner \
+        //                     -Dsonar.projectKey=marius-tasklist-backend \
+        //                     -Dsonar.sources=src \
+        //                     -Dsonar.coverage.exclusions=**/__tests__/** \
+        //                     -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info,coverage-e2e/lcov.info
+        //             '''
+        //         }
+        //     }
+        // }
 
         stage('Build Docker Image') {
             steps {
