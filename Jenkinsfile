@@ -7,7 +7,6 @@ pipeline {
         IMAGE_TAG = "${BUILD_NUMBER}"
         DOCKER_CREDENTIALS = 'dockerhub-credentials'
         SONARQUBE_TOKEN = 'sonarqube-token'
-        NODE_ENV = 'production'
     }
 
     triggers {
