@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         REGISTRY = 'docker.io'
-        IMAGE_NAME = "${REGISTRY}/mariusyvart/marius-tasklist-backend"
+        IMAGE_NAME = "${REGISTRY}/muvay/marius-tasklist-backend"
         IMAGE_TAG = "${BUILD_NUMBER}"
         DOCKER_CREDENTIALS = 'dockerhub-credentials'
         SONARQUBE_TOKEN = 'sonarqube-token'
@@ -55,20 +55,20 @@ pipeline {
             }
         }
 
-        // stage('SonarQube Analysis') {
-        //     steps {
-        //         echo '🔍 Analyse SonarQube...'
-        //         withSonarQubeEnv('sonarqube') {
-        //             sh '''
-        //                 npx sonarqube-scanner \
-        //                     -Dsonar.projectKey=marius-tasklist-backend \
-        //                     -Dsonar.sources=src \
-        //                     -Dsonar.coverage.exclusions=**/__tests__/** \
-        //                     -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info,coverage-e2e/lcov.info
-        //             '''
-        //         }
-        //     }
-        // }
+        stage('SonarQube Analysis') {
+            steps {
+                echo '🔍 Analyse SonarQube...'
+                withSonarQubeEnv('sonarqube') {
+                    sh '''
+                        npx sonarqube-scanner \
+                            -Dsonar.projectKey=marius-tasklist-backend \
+                            -Dsonar.sources=src \
+                            -Dsonar.coverage.exclusions=**/__tests__/** \
+                            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info,coverage-e2e/lcov.info
+                    '''
+                }
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
