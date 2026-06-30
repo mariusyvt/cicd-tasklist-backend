@@ -1,0 +1,16 @@
+node_modules
+dist
+coverage
+reports
+.git
+.gitignore
+.env.local
+.env.*.local
+.DS_Store
+*.md
+.vscode
+.idea
+src/__tests__
+vitest.config.ts
+.dockerignore
+docker-compose.yml

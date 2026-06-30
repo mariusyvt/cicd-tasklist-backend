@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  # Base de données MySQL
+  db:
+    image: mysql:8.0
+    container_name: tasklist-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-tasklist}
+      MYSQL_USER: ${MYSQL_USER:-tasklist_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Application backend
+  backend:
+    build: .
+    container_name: tasklist-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: mysql://tasklist_user:password@db:3306/tasklist
+      NODE_ENV: production
+      PORT: 3001
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./src:/app/src
+    command: sh -c "npx prisma migrate deploy && node dist/server.js"
+
+volumes:
+  db_data:
